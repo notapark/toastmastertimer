@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toastmaster Timer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 설정 화면 -->
+        <div id="setup-screen" class="screen">
+            <div class="container">
+                <h1>토론 타이머</h1>
+                
+                <!-- 세션 정보 입력 -->
+                <div class="session-info">
+                    <div class="input-group">
+                        <label for="session-name">세션명:</label>
+                        <input type="text" id="session-name" placeholder="예: 2024년 1월 정기토론" value="" maxlength="50">
+                    </div>
+                    <div class="input-group">
+                        <label for="speaker-name">토론자명:</label>
+                        <input type="text" id="speaker-name" placeholder="예: 홍길동" value="">
+                    </div>
+                </div>
+
+                <!-- 타이머 설정 -->
+                <div class="timer-settings">
+                    <h3>타이머 설정</h3>
+                    <div class="time-inputs">
+                        <div class="input-group">
+                            <label for="minutes">분:</label>
+                            <input type="number" id="minutes" min="0" max="59" value="5" placeholder="분">
+                        </div>
+                        <div class="input-group">
+                            <label for="seconds">초:</label>
+                            <input type="number" id="seconds" min="0" max="59" value="0" placeholder="초">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="warning-time">노란불 시점:</label>
+                        <input type="number" id="warning-time" min="5" max="300" value="30" placeholder="초">
+                        <span class="unit">초 전</span>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button id="start-btn" class="btn btn-primary">발언 시작</button>
+                    <button id="view-records-btn" class="btn btn-secondary">기록 보기</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 타이머 화면 -->
+        <div id="timer-screen" class="screen hidden">
+            <div class="timer-container">
+                <div class="speaker-info">
+                    <div class="session-name" id="current-session">세션명</div>
+                    <div class="speaker-name" id="current-speaker">토론자명</div>
+                </div>
+                <div id="timer-display" class="timer-display">
+                    <span class="timer-label">경과 시간:</span>
+                    <span id="time-text">00:00</span>
+                </div>
+                <div id="time-warning" class="time-warning hidden">
+                    <span class="warning-text">⚠️ 시간 초과! 발언 종료 버튼을 눌러주세요</span>
+                </div>
+                <div id="elapsed-time" class="elapsed-time hidden">
+                    <span class="elapsed-label">총 소요 시간:</span>
+                    <span id="elapsed-text">00:00</span>
+                </div>
+                <div class="timer-controls">
+                    <button id="pause-btn" class="btn btn-secondary">일시정지</button>
+                    <button id="stop-btn" class="btn btn-danger">발언 종료</button>
+                    <button id="fullscreen-btn" class="btn btn-info">전체화면</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 기록 화면 -->
+        <div id="records-screen" class="screen hidden">
+            <div class="records-container">
+                <h2>발언 기록</h2>
+                <div class="records-controls">
+                    <button id="back-to-setup-btn" class="btn btn-primary">새 발언</button>
+                    <button id="export-records-btn" class="btn btn-success">기록 내보내기</button>
+                    <button id="clear-records-btn" class="btn btn-danger">기록 삭제</button>
+                </div>
+                <div class="records-table-container">
+                    <table id="records-table" class="records-table">
+                        <thead>
+                            <tr>
+                                <th>세션명</th>
+                                <th>토론자</th>
+                                <th>발언 시간</th>
+                                <th>시작 시간</th>
+                                <th>종료 시간</th>
+                            </tr>
+                        </thead>
+                        <tbody id="records-tbody">
+                            <!-- 기록이 여기에 동적으로 추가됩니다 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="timer.js"></script>
+</body>
+</html>
