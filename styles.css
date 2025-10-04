@@ -171,7 +171,7 @@ h1 {
 .warning-text {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #f44336;
+    color: #ffffff;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
@@ -374,28 +374,15 @@ h1 {
 /* 색상 상태 */
 .timer-green {
     background: linear-gradient(135deg, #4CAF50, #45a049);
-    animation: pulse-green 2s infinite;
 }
 
 .timer-yellow {
     background: linear-gradient(135deg, #FFC107, #FF8F00);
-    animation: pulse-yellow 1s infinite;
 }
 
 .timer-red {
     background: linear-gradient(135deg, #f44336, #d32f2f);
     box-shadow: 0 0 20px rgba(244, 67, 54, 0.5);
-}
-
-/* 애니메이션 */
-@keyframes pulse-green {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-}
-
-@keyframes pulse-yellow {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
 }
 
 

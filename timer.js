@@ -285,9 +285,8 @@ class ToastmasterTimer {
     }
 
     resetInputs() {
-        this.minutesInput.value = '5';
-        this.secondsInput.value = '0';
-        this.warningTimeInput.value = '30';
+        // 저장된 설정값을 유지하도록 수정
+        this.loadSavedSettings();
         this.pauseBtn.textContent = '일시정지';
         this.startTime = null;
         this.pausedTime = 0;
