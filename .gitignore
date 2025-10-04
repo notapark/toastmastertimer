@@ -9,6 +9,11 @@ dist/
 build/
 out/
 
+# Electron build outputs
+*.dmg
+*.exe
+*.app
+
 # OS generated files
 .DS_Store
 .DS_Store?

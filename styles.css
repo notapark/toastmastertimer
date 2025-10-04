@@ -80,8 +80,8 @@ h1 {
     padding: 0 10px;
 }
 
-/* 세션명 입력 필드만 더 넓게 */
-#session-name {
+/* 세션명과 토론자명 입력 필드를 더 넓게 */
+#session-name, #speaker-name {
     width: 300px;
     text-align: left;
     padding: 0 15px;
@@ -166,7 +166,6 @@ h1 {
     border: 2px solid #f44336;
     border-radius: 15px;
     text-align: center;
-    animation: warning-pulse 1s infinite;
 }
 
 .warning-text {
@@ -176,16 +175,6 @@ h1 {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-@keyframes warning-pulse {
-    0%, 100% { 
-        opacity: 1; 
-        transform: scale(1);
-    }
-    50% { 
-        opacity: 0.8; 
-        transform: scale(1.05);
-    }
-}
 
 /* 버튼 스타일 */
 .btn {
@@ -395,7 +384,6 @@ h1 {
 
 .timer-red {
     background: linear-gradient(135deg, #f44336, #d32f2f);
-    animation: pulse-red 0.5s infinite;
     box-shadow: 0 0 20px rgba(244, 67, 54, 0.5);
 }
 
@@ -410,16 +398,6 @@ h1 {
     50% { transform: scale(1.05); }
 }
 
-@keyframes pulse-red {
-    0%, 100% { 
-        transform: scale(1); 
-        box-shadow: 0 0 20px rgba(244, 67, 54, 0.5);
-    }
-    50% { 
-        transform: scale(1.15); 
-        box-shadow: 0 0 30px rgba(244, 67, 54, 0.8);
-    }
-}
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {

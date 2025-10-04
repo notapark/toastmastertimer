@@ -4,7 +4,7 @@ class ToastmasterTimer {
     constructor() {
         this.totalSeconds = 0;
         this.remainingSeconds = 0;
-        this.warningTime = 30; // 노란불 시점 (기본값 30초)
+        this.warningTime = 30; // 경고시점 (기본값 30초)
         this.isRunning = false;
         this.isPaused = false;
         this.intervalId = null;
@@ -19,6 +19,7 @@ class ToastmasterTimer {
         
         this.initializeElements();
         this.bindEvents();
+        this.loadSavedSettings();
     }
 
     initializeElements() {
@@ -78,10 +79,19 @@ class ToastmasterTimer {
             }
         });
         
-        // 숫자 입력 유효성 검사
-        this.minutesInput.addEventListener('input', () => this.validateInput());
-        this.secondsInput.addEventListener('input', () => this.validateInput());
-        this.warningTimeInput.addEventListener('input', () => this.validateWarningTime());
+        // 숫자 입력 유효성 검사 및 자동 저장
+        this.minutesInput.addEventListener('input', () => {
+            this.validateInput();
+            this.saveSettings();
+        });
+        this.secondsInput.addEventListener('input', () => {
+            this.validateInput();
+            this.saveSettings();
+        });
+        this.warningTimeInput.addEventListener('input', () => {
+            this.validateWarningTime();
+            this.saveSettings();
+        });
     }
 
     validateInput() {
@@ -99,7 +109,7 @@ class ToastmasterTimer {
     }
 
     validateWarningTime() {
-        // 노란불 시점 입력 검증 (5-300초)
+        // 경고시점 입력 검증 (5-300초)
         let warningTime = parseInt(this.warningTimeInput.value) || 30;
         if (warningTime > 300) warningTime = 300;
         if (warningTime < 5) warningTime = 5;
@@ -221,11 +231,11 @@ class ToastmasterTimer {
             const remainingSeconds = this.totalSeconds - elapsedSeconds;
             
             if (remainingSeconds > this.warningTime) {
-                // 노란불 시점 초과: 초록색
+                // 경고시점 초과: 초록색
                 this.timerContainer.classList.add('timer-green');
                 this.timeWarningDiv.classList.add('hidden');
             } else if (remainingSeconds > 0) {
-                // 노란불 시점 이하: 노란색
+                // 경고시점 이하: 노란색
                 this.timerContainer.classList.add('timer-yellow');
                 this.timeWarningDiv.classList.add('hidden');
             } else {
@@ -416,6 +426,37 @@ class ToastmasterTimer {
             localStorage.removeItem('debateRecords');
             this.updateRecordsTable();
             alert('기록이 삭제되었습니다.');
+        }
+    }
+
+    // 설정 저장
+    saveSettings() {
+        const settings = {
+            minutes: this.minutesInput.value,
+            seconds: this.secondsInput.value,
+            warningTime: this.warningTimeInput.value
+        };
+        localStorage.setItem('timerSettings', JSON.stringify(settings));
+    }
+
+    // 저장된 설정 불러오기
+    loadSavedSettings() {
+        const savedSettings = localStorage.getItem('timerSettings');
+        if (savedSettings) {
+            try {
+                const settings = JSON.parse(savedSettings);
+                if (settings.minutes !== undefined) {
+                    this.minutesInput.value = settings.minutes;
+                }
+                if (settings.seconds !== undefined) {
+                    this.secondsInput.value = settings.seconds;
+                }
+                if (settings.warningTime !== undefined) {
+                    this.warningTimeInput.value = settings.warningTime;
+                }
+            } catch (error) {
+                console.error('설정 불러오기 실패:', error);
+            }
         }
     }
 }
